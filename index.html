@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="افسانه سیاه‌چال"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/app-192.png"><title>افسانهٔ سیاه‌چال</title><style>
+@font-face{font-family:Vazir;src:url('fonts/Vazir-Regular.woff2') format('woff2');font-weight:400;font-display:swap}@font-face{font-family:Vazir;src:url('fonts/Vazir-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+:root{color-scheme:dark;--bg:#111116;--line:#34323c;--text:#f0eef4;--muted:#aaa7b2;--gold:#e4bf79;--accent:#c5a5e8;--red:#fa828c}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#2d2837 0,transparent 50%),var(--bg);color:var(--text);font-family:Vazir,Tahoma,sans-serif;line-height:1.7;padding:82px 0 85px}button{font:inherit;color:inherit;border:1px solid var(--line);background:#24232b;padding:9px 14px;border-radius:12px;cursor:pointer}button:disabled{opacity:.48;cursor:not-allowed}.topbar{position:fixed;inset:0 0 auto;background:#15141bee;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:5;padding:10px max(14px,calc((100vw - 900px)/2))}.wrap{width:min(900px,100%);margin:auto;padding:0 14px}.top-stats{display:flex;justify-content:space-between;gap:8px}.top-stats b{color:var(--gold)}section{display:none}section.active{display:block}.heading{display:flex;justify-content:space-between;align-items:center;margin:7px 2px 10px;gap:8px}.heading h1,.heading h2{font-size:21px;margin:0}.panel,.dungeon-card{background:linear-gradient(150deg,#211f27,#18171e);border:1px solid var(--line);border-radius:15px;padding:10px;margin:8px 0}.hero-summary{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.level{font-size:21px;color:var(--gold)}.eyebrow,.empty{font-size:13px;color:var(--muted)}.xp-wrap,.bar{height:8px;border-radius:9px;background:#36343d;overflow:hidden;margin:7px 0}.xp-fill,.bar>div{height:100%;background:linear-gradient(90deg,#9c7dc4,#e4bf79)}.stats-grid,.equipment-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}.stat, .equipment-chip{background:#19181f;border:1px solid #34313b;border-radius:10px;padding:7px;display:flex;justify-content:space-between;gap:6px}.stat span,.equipment-chip span{color:var(--muted)}.dungeon-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.dungeon-card{margin:0;display:flex;flex-direction:column;justify-content:space-between;gap:7px;min-height:112px;padding:10px}.dungeon-card h3{margin:2px 0}.dungeon-card p{font-size:12px;color:var(--muted);margin:0}.locked{opacity:.55}.battle-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.combatant{background:#19181f;border:1px solid var(--line);border-radius:13px;padding:9px}.combatant h3{margin:0 0 8px;font-size:16px}.combat-stats{display:grid;grid-template-columns:1fr 1fr;gap:4px;font-size:13px;color:var(--muted)}.combat-stats b{color:var(--text)}.enemybar>div{background:var(--red)}.battle-message{border-right:3px solid var(--gold);padding:6px 9px;color:#e5d5aa;background:#25232a;border-radius:8px;margin:7px 0}.actions{display:grid;gap:8px}.action-row{display:flex;gap:8px}.action-row>*{flex:1}.primary{background:#3b3150;border-color:#756091}.danger{background:#492522}.shop-tabs{display:flex;gap:7px;overflow:auto;padding:2px 0 10px}.shop-tabs button{white-space:nowrap}.shop-tabs button.selected{border-color:var(--gold);color:var(--gold)}.shop-list{display:grid;gap:8px}.shop-item{display:flex;align-items:center;gap:10px;background:#19181f;border:1px solid var(--line);padding:9px;border-radius:13px}.shop-item img{width:38px;height:38px;object-fit:contain;background:#24232b;border-radius:9px}.item-info{flex:1;display:grid}.item-info span{font-size:12px;color:var(--muted)}.bottom-nav{position:fixed;inset:auto 0 0;z-index:5;background:#15141bee;border-top:1px solid var(--line);display:flex;padding:7px max(8px,calc((100vw - 700px)/2));padding-bottom:max(7px,env(safe-area-inset-bottom))}.bottom-nav button{flex:1;background:transparent;border-color:transparent;padding:7px 3px;font-size:13px}.bottom-nav button.active{color:var(--gold);background:#292631}.toastbox{position:fixed;z-index:10;top:86px;left:50%;transform:translateX(-50%);display:grid;gap:7px;pointer-events:none}.toast{background:#292631;border:1px solid #625872;border-radius:12px;padding:8px 15px;box-shadow:0 8px 24px #0008}.toast.lvl{border-color:var(--gold);color:var(--gold)}[hidden]{display:none!important}button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}@media(max-width:560px){body{line-height:1.5;padding-top:68px;padding-bottom:66px}.topbar{padding-top:5px;padding-bottom:5px}.wrap{padding-left:9px;padding-right:9px}.panel{padding:9px;margin:6px 0}.heading h1,.heading h2{font-size:18px}.dungeon-grid{gap:6px}.dungeon-card{padding:8px;min-height:96px}.dungeon-card h3{font-size:15px}.dungeon-card button{padding:6px;font-size:12px}.battle-grid{grid-template-columns:1fr 1fr;gap:6px}.combatant{padding:7px}.combatant h3{font-size:13px}.combat-stats{font-size:11px;gap:2px}.action-row{gap:5px}.action-row button{padding:7px 5px;font-size:12px}.shop-tabs{gap:4px;padding-bottom:5px}.shop-tabs button{padding:6px 9px;font-size:12px}.shop-list{gap:5px}.shop-item{padding:6px;gap:7px}.shop-item img{width:34px;height:34px}.shop-item button{padding:6px;font-size:11px}.equipment-details{padding:8px 10px}.equipment-details summary{cursor:pointer;font-weight:700}.equipment-details[open] summary{margin-bottom:8px}.equipment-chip{font-size:12px}}
+ .svg-icon{width:1.05em;height:1.05em;display:inline-block;vertical-align:-.2em;flex:0 0 auto}.shop-item .svg-icon{width:16px;height:16px}.icon-pair{display:flex;gap:4px}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:2px 10px;white-space:nowrap;font-size:11px}
+
+:root{--bg:#07090d;--line:#1e2a3b;--text:#e9f1fc;--muted:#93a3b8;--gold:#68aaff;--accent:#3288f5;--level-green:#43d17a}body{background:radial-gradient(ellipse at 50% -20%,#10264a 0,transparent 48%),var(--bg)}button{background:#101722;border-color:#25354b}.topbar,.bottom-nav{background:#090d14f2;border-color:#1e2a3b}.panel,.dungeon-card,.combatant,.stat,.equipment-chip,.shop-item{background:linear-gradient(150deg,#111a27,#090d14);border-color:#1e2a3b}.primary{background:#10294a;border-color:#2866a7}.bottom-nav button.active{background:#12233a;color:#72b7ff}.shop-tabs button.selected{color:#78baff;border-color:#3288f5}.toast{background:#101a28;border-color:#2866a7}.level,#topLvl,#pLvl,#pXp{color:var(--level-green)}.toast.lvl{border-color:var(--level-green);color:var(--level-green)}.xp-fill{background:linear-gradient(90deg,#35bd6c,#7ded9c)}.dungeon-card{border-color:var(--rank-color,#1e2a3b);box-shadow:inset 3px 0 0 var(--rank-color,#1e2a3b)}.dungeon-color{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--rank-color);box-shadow:0 0 9px var(--rank-color);margin-left:6px}.shop-tabs button{min-width:42px;padding:7px 10px}.shop-tabs .svg-icon{width:20px;height:20px}.hero-summary{grid-template-columns:1fr}.rank-row{margin-bottom:5px}
+
+:root{--bg:#07090d;--line:#1e2a3b;--text:#e9f1fc;--muted:#93a3b8;--gold:#68aaff;--accent:#3288f5;--level-green:#43d17a}body{background:#07090d;color:var(--text)}button{background:#101722;border-color:#25354b}.topbar,.bottom-nav{background:#090d14f2;border-color:#1e2a3b}.panel,.dungeon-card,.combatant,.stat,.equipment-chip,.shop-item{background:#0d121a;border-color:#1e2a3b}.primary{background:#10294a;border-color:#2866a7}.bottom-nav button.active{background:#12233a;color:#72b7ff}.shop-tabs button.selected{color:#78baff;border-color:#3288f5}.level,#topLvl,#pLvl,#pXp{color:var(--level-green)}.xp-fill{background:#43d17a!important}.top-stats{align-items:center}.battle-panel{padding:9px}.battle-grid{align-items:stretch;min-height:216px}.combatant{position:relative;min-width:0;height:216px;overflow:hidden;padding:10px;display:flex;flex-direction:column;gap:6px}.combatant h3{height:26px;min-height:26px;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.combatant .rank-row{height:25px;min-height:25px;margin:0}.rank-placeholder{visibility:hidden}.combat-mana,.enemy-health{height:48px;min-height:48px;display:flex;flex-direction:column;justify-content:center;gap:4px}.combat-mana>span,.health-label{display:flex;align-items:center;gap:5px;font-size:12px}.mana-track,.health-track{height:8px;border-radius:99px;background:#202a38;overflow:hidden}.mana-track>div{height:100%;background:#268de8;transition:width .25s}.health-track>div{height:100%;background:#34c76a;transition:width .3s}.combat-stats{margin-top:auto;display:grid;grid-template-columns:18px 1fr 18px 1fr 18px 1fr;align-items:center;gap:4px}.combat-stats b{text-align:center}.enemy-combatant .combat-stats{margin-top:auto}.float-layer{position:absolute;inset:0;pointer-events:none;overflow:hidden}.float-number{position:absolute;left:50%;top:48%;font-weight:700;font-size:20px;text-shadow:0 2px 8px #000;animation:float-up 1s ease-out forwards}.float-number.damage{color:#ff6475}.float-number.healing{color:#ff5162}.float-number.mana{color:#52b7ff}@keyframes float-up{0%{opacity:0;transform:translate(-50%,8px) scale(.8)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-45px) scale(1.08)}}.battle-feed{display:none;position:fixed;z-index:4;inset:auto 10px calc(62px + env(safe-area-inset-bottom));min-height:33px;padding:5px 12px;border:1px solid #26364b;border-radius:10px;background:#0c1119ed;color:#b6c4d7;font-size:12px;text-align:center;pointer-events:none}.battle-open .battle-feed{display:block}.toastbox{top:76px;z-index:12}.reward-toast{display:flex;align-items:center;justify-content:center;gap:12px;border-color:#3689de;background:#0b1421}.reward-toast b{display:flex;align-items:center;gap:3px}.reward-toast .svg-icon,.shop-item button .svg-icon,.action-row button .svg-icon{transform:translateY(2px)}.dungeon-card{border-color:var(--rank-color,#1e2a3b);box-shadow:inset 3px 0 0 var(--rank-color,#1e2a3b)}.dungeon-count{font-size:12px;color:var(--muted)}.dungeon-card.complete{opacity:.62}.tag{border-radius:999px}@media(max-width:560px){body{padding-top:62px;padding-bottom:68px}.topbar{padding-top:4px;padding-bottom:4px}.wrap{padding-left:8px;padding-right:8px}.heading{margin:5px 2px 7px}.heading h1,.heading h2{font-size:17px}.battle-grid{min-height:202px;gap:5px}.combatant{height:202px;padding:7px;gap:5px}.combatant h3{font-size:12px}.combat-stats{font-size:11px;grid-template-columns:16px 1fr 16px 1fr 16px 1fr}.battle-panel{padding:6px}.battle-feed{inset-inline:6px;bottom:calc(58px + env(safe-area-inset-bottom));padding:4px 8px;font-size:11px}.action-row button{font-size:11px;padding:7px 3px}.shop-tabs{flex-wrap:wrap;overflow:visible}.shop-tabs button{min-width:38px;padding:6px}.shop-tabs .svg-icon{width:18px;height:18px}.reward-toast{gap:7px;font-size:12px}} body:not(.battle-open) #battleFeed{display:none}
+
+/* بازطراحی میدان نبرد */
+#battle{max-width:760px;margin-inline:auto}
+.battle-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:5px 2px 12px}
+.battle-heading h1{font-size:22px;line-height:1.2;margin:0}
+.battle-kicker{display:block;color:#6bafff;font-size:11px;font-weight:700;letter-spacing:.08em}
+.battle-progress{display:flex;align-items:center;gap:9px;padding:6px 11px;border:1px solid #20344d;border-radius:999px;background:#0d1724;color:#9aabc0;font-size:12px;white-space:nowrap}
+.battle-progress b{color:#e9f1fc}
+.progress-divider{height:14px;border-inline-start:1px solid #34475f}
+.battle-board{display:grid;grid-template-columns:minmax(0,1fr) 34px minmax(0,1fr);align-items:stretch;gap:9px}
+.fighter-card{position:relative;isolation:isolate;min-width:0;min-height:183px;overflow:hidden;padding:12px;border:1px solid #22334a;border-radius:18px;background:linear-gradient(155deg,#111d2c,#0a1019 72%);box-shadow:0 12px 30px #0004}
+.enemy-card{border-color:#56303a;background:linear-gradient(150deg,#25141c,#101018 72%)}
+.hero-card{border-color:#214b75;background:linear-gradient(150deg,#10233a,#0a111b 72%)}
+.fighter-heading{display:flex;align-items:center;gap:9px;min-width:0;min-height:45px}
+.fighter-icon{width:38px;height:38px;display:grid;place-items:center;flex:0 0 38px;border-radius:12px;background:#18283b;color:#80bdff}
+.enemy-card .fighter-icon{background:#3a2029;color:#ff9098}
+.fighter-icon .svg-icon{width:24px;height:24px}
+.fighter-name{display:grid;gap:2px;min-width:0;flex:1}
+.fighter-name strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px}
+.fighter-kind{padding:3px 8px;border:1px solid #613744;border-radius:999px;color:#ff9aa2;font-size:10px}
+.fighter-health-number{display:grid;justify-items:end;gap:1px;color:#ff8b94;font-size:11px;white-space:nowrap}
+.fighter-health-number b{display:flex;align-items:center;gap:3px;color:#f1f5fb;font-size:11px}
+.fighter-health-number .svg-icon{width:14px;height:14px}
+.fighter-vital,.fighter-mana{margin-top:10px}
+.vital-label{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px;color:#9cacbf;font-size:11px}
+.vital-label>span,.vital-label strong{display:flex;align-items:center;gap:4px}
+.vital-label strong{color:#e7eef8;font-size:11px}
+.vital-label .svg-icon{width:14px;height:14px}
+.vital-label small,.fighter-health-number small{color:#ff6876;font-size:10px;margin-inline-start:3px}
+.health-track,.mana-track{height:9px;margin:0;border:1px solid #ffffff0d;border-radius:999px;background:#263141;overflow:hidden}
+.health-track>div,.mana-track>div{height:100%;width:0;border-radius:inherit;transition:width .28s ease,background-color .28s ease}
+.health-track>div{background:#39c978}
+.mana-track>div{background:linear-gradient(90deg,#1671d4,#52b6ff)}
+.fighter-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:12px}
+.fighter-stats>span{display:grid;grid-template-columns:16px 1fr;column-gap:4px;align-items:center;min-width:0;padding:5px 6px;border:1px solid #ffffff0b;border-radius:10px;background:#ffffff05}
+.fighter-stats .svg-icon{grid-row:span 2;width:15px;height:15px}
+.fighter-stats b{font-size:12px;line-height:1.2}
+.fighter-stats small{grid-column:2;color:#8798ad;font-size:9px;line-height:1.2}
+.duel-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#7890aa}
+.duel-divider>span{width:1px;flex:1;background:linear-gradient(transparent,#304862,transparent)}
+.duel-divider b{display:grid;place-items:center;width:29px;height:29px;border:1px solid #2e4a67;border-radius:50%;background:#101a27;color:#8dbfff;font-size:9px}
+.rank-row{min-height:18px}
+.rank-row .tag{padding:1px 8px;font-size:10px}
+.rank-placeholder{visibility:hidden}
+.battle-feed{display:block;position:static;inset:auto;min-height:32px;margin:9px 0 7px;padding:6px 11px;border:1px solid #1d334b;border-radius:11px;background:#0c1520;color:#b2c2d5;font-size:11px;text-align:center}
+.battle-controls{display:grid;gap:7px}
+.battle-controls .action-row{display:flex;gap:7px}
+.battle-controls button{min-height:40px;padding:7px 10px;border-radius:12px;font-size:12px}
+.battle-action-primary #mainActionBtn{flex:1;min-height:46px;font-size:14px;font-weight:700}
+.battle-action-primary #fleeBtn{flex:0 0 100px;background:#21161b;border-color:#62303a;color:#ff9da3}
+.battle-main-action .svg-icon,.battle-controls .svg-icon{width:17px;height:17px;vertical-align:-.22em}
+#magicRow button,#battleShopRow button{flex:1}
+.battle-controls button:disabled{filter:saturate(.5)}
+.float-layer{position:absolute;z-index:3;inset:0;overflow:hidden;pointer-events:none}
+.float-number{left:50%;top:45%;font-size:22px}
+@media(max-width:600px){
+ #battle{padding-bottom:4px}
+ .battle-heading{margin:2px 1px 9px}
+ .battle-heading h1{font-size:19px}
+ .battle-board{grid-template-columns:minmax(0,1fr);gap:6px}
+ .fighter-card{min-height:132px;padding:9px 11px;border-radius:15px}
+ .fighter-heading{min-height:38px;gap:7px}
+ .fighter-icon{width:33px;height:33px;flex-basis:33px;border-radius:10px}
+ .fighter-icon .svg-icon{width:21px;height:21px}
+ .fighter-name strong{font-size:13px}
+ .fighter-vital,.fighter-mana{margin-top:6px}
+ .fighter-stats{margin-top:8px}
+ .fighter-stats>span{padding:4px 5px}
+ .duel-divider{height:15px;flex-direction:row;gap:7px}
+ .duel-divider>span{height:1px;width:auto;flex:1;background:linear-gradient(90deg,transparent,#304862,transparent)}
+ .duel-divider b{width:23px;height:23px;font-size:8px}
+ .battle-feed{min-height:29px;margin:7px 0 6px;padding:5px 8px}
+ .battle-controls{gap:6px}
+ .battle-controls .action-row{gap:6px}
+ .battle-controls button{min-height:38px;padding:6px;font-size:11px}
+ .battle-action-primary #mainActionBtn{min-height:42px;font-size:13px}
+ .battle-action-primary #fleeBtn{flex-basis:82px}
+}
+@media(max-width:370px){.fighter-card{padding:8px}.fighter-stats{gap:3px}.fighter-stats>span{padding:4px 3px}.battle-progress{gap:6px;padding:5px 8px}}
+
+
+/* نوارهای وضعیت قهرمان و رنگ‌بندی رویدادهای جست‌وجو */
+.fighter-card{display:flex;flex-direction:column;height:218px;min-height:218px}
+.fighter-stats{margin-top:auto}
+.hero-vital{margin-top:5px}
+.hero-vital .health-track>div{background:#39c978}
+.battle-feed.event-mana{border-color:#1879b4;color:#8ed9ff;background:#0c1923}
+.battle-feed.event-treasure{border-color:#8a6b2e;color:#f2d68c;background:#19180f}
+.battle-feed.event-trap,.battle-feed.event-defeat{border-color:#783b43;color:#ffabb0;background:#211317}
+.battle-feed.event-enemy{border-color:#344b65;color:#c2d8f2}
+.battle-feed.event-victory{border-color:#277b53;color:#a5edc1;background:#0d1a17}
+.battle-feed.event-complete{border-color:#4a5d77;color:#c2d8f2}
+.float-number.gold{display:flex;align-items:center;gap:3px;color:#f4cd65}
+.float-number.gold .svg-icon{width:17px;height:17px}
+@media(max-width:600px){
+ .battle-board{position:relative;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;padding-inline:7px}
+ .fighter-card{height:202px;min-height:202px;padding:9px 8px;border-radius:14px}
+ .fighter-heading{min-height:37px;gap:6px}
+ .fighter-icon{width:31px;height:31px;flex-basis:31px}
+ .fighter-icon .svg-icon{width:19px;height:19px}
+ .fighter-name strong{font-size:11px}
+ .fighter-kind{display:none}
+ .fighter-vital,.fighter-mana{margin-top:4px}
+ .vital-label{font-size:10px;margin-bottom:4px}
+ .vital-label strong{font-size:10px;gap:2px}
+ .health-track,.mana-track{height:8px}
+ .fighter-stats{gap:3px;margin-top:auto}
+ .fighter-stats>span{grid-template-columns:13px 1fr;column-gap:2px;padding:4px 3px}
+ .fighter-stats .svg-icon{width:12px;height:12px}
+ .fighter-stats b{font-size:10px}
+ .fighter-stats small{font-size:8px}
+ .duel-divider{position:absolute;z-index:4;left:50%;top:0;bottom:0;width:21px;transform:translateX(-50%);height:auto;flex-direction:column;gap:6px;pointer-events:none}
+ .duel-divider>span{width:1px;height:auto;flex:1;background:linear-gradient(transparent,#304862,transparent)}
+ .duel-divider b{width:21px;height:21px;flex:0 0 21px;font-size:7px}
+ .hero-vital{margin-top:4px}
+}
+@media(max-width:360px){.fighter-card{padding-inline:6px}.fighter-name strong{font-size:10px}.fighter-stats>span{padding-inline:2px}}
+
+</style></head><body><div id="toastBox" class="toastbox" aria-live="polite"></div><header class="topbar"><div class="wrap"><div class="top-stats"><span>سطح <b id="topLvl">۱</b></span><span><b><span class="svg-icon" data-icon="gold"></span> <span id="topGold">۵۰</span></b></span><span id="topRank"></span></div></div></header><main class="wrap">
+<section id="stats" class="active"><div class="heading"><h1>قهرمان</h1></div><div class="panel"><div class="hero-summary"><div><div class="level">سطح <span id="pLvl">۱</span></div><div class="eyebrow"><span class="svg-icon" data-icon="xp" title="تجربه"></span> <span id="pXp"></span></div><div class="xp-wrap"><div id="pXpBar" class="xp-fill"></div></div></div></div><div class="stats-grid"><div class="stat"><span><span class="svg-icon" data-icon="heart"></span> جان</span><b><span id="pHp"></span>/<span id="pMaxHp"></span></b></div><div class="stat"><span><span class="svg-icon" data-icon="mana"></span> مانا</span><b><span id="pMp"></span>/<span id="pMaxMp"></span></b></div><div class="stat"><span class="svg-icon" data-icon="atk" title="حمله"></span><b id="pAtk"></b></div><div class="stat"><span><span class="svg-icon" data-icon="def" title="دفاع"></span></span><b id="pDef"></b></div><div class="stat"><span><span class="svg-icon" data-icon="agi" title="چابکی"></span></span><b id="pAgi"></b></div><div class="stat"><span><span class="svg-icon" data-icon="heal"></span> درمان</span><b id="pHeal"></b></div><div class="stat"><span><span class="svg-icon" data-icon="manaRegen"></span> بازیابی مانا</span><b id="pManaRegen"></b></div><div class="stat"><span><span class="svg-icon" data-icon="trophy"></span> پیروزی</span><b id="pKills"></b></div></div></div><div id="deadBox" class="panel" hidden><h2>از پا افتادی!</h2><p>پیشرفت و تجهیزاتت حفظ شده‌اند. احیا بخشی از جان و مانا را بازمی‌گرداند.</p><button onclick="revive()">احیا شو</button></div><details class="panel equipment-details"><summary>تجهیزات من</summary><div id="equipmentList" class="equipment-grid"></div></details></section>
+<section id="dungeons"><div class="heading"><h1>سیاه‌چال‌ها</h1><span>رتبهٔ فعلی: <b id="curDungeon"></b></span></div><p class="empty">قدرتت را بالا ببر تا دروازه‌های رتبه‌های بالاتر باز شوند.</p><div id="dungeonList" class="dungeon-grid"></div></section>
+<section id="battle">
+ <header class="battle-heading"><div><span class="battle-kicker">میدان</span><h1>نبرد</h1></div><div class="battle-progress"><span>رتبهٔ <b id="bDungeon"></b></span><span class="progress-divider"></span><span><b id="battleCount"></b></span></div></header>
+ <div class="battle-board">
+  <article class="fighter-card enemy-card" aria-label="دشمن">
+   <div class="fighter-heading"><span class="fighter-icon"><span class="svg-icon" data-icon="monster"></span></span><div class="fighter-name"><strong id="eName">برای جست‌وجو آماده</strong><div id="eRank" class="rank-row"><span class="tag rank-placeholder">؟</span></div></div><span class="fighter-kind">دشمن</span></div>
+   <div class="fighter-vital"><div class="vital-label"><span><span class="svg-icon" data-icon="heart"></span> جان</span><strong><span id="eHp">—</span><small id="eHpChange"></small></strong></div><div class="health-track"><div id="enemyHpBar"></div></div></div>
+   <div class="fighter-stats"><span><span class="svg-icon" data-icon="atk"></span><b id="eAtk">—</b><small>حمله</small></span><span><span class="svg-icon" data-icon="def"></span><b id="eDef">—</b><small>دفاع</small></span><span><span class="svg-icon" data-icon="agi"></span><b id="eAgi">—</b><small>چابکی</small></span></div>
+   <div id="enemyFloats" class="float-layer" aria-hidden="true"></div>
+  </article>
+  <div class="duel-divider" aria-hidden="true"><span></span><b>VS</b><span></span></div>
+  <article class="fighter-card hero-card" aria-label="قهرمان">
+   <div class="fighter-heading"><span class="fighter-icon"><span class="svg-icon" data-icon="hero"></span></span><div class="fighter-name"><strong>قهرمان</strong><div id="bHeroRank" class="rank-row"></div></div></div>
+   <div class="fighter-vital hero-vital"><div class="vital-label"><span><span class="svg-icon" data-icon="heart"></span> جان</span><strong><span id="bHp"></span>/<span id="bMaxHp"></span><small id="bHpChange"></small></strong></div><div class="health-track"><div id="heroHpFill"></div></div></div>
+   <div class="fighter-mana"><div class="vital-label"><span><span class="svg-icon" data-icon="mana"></span> مانا</span><strong><span id="bMp"></span>/<span id="bMaxMp"></span><small id="bMpChange"></small></strong></div><div class="mana-track"><div id="heroMpFill"></div></div></div>
+   <div class="fighter-stats"><span><span class="svg-icon" data-icon="atk"></span><b id="bAtk"></b><small>حمله</small></span><span><span class="svg-icon" data-icon="def"></span><b id="bDef"></b><small>دفاع</small></span><span><span class="svg-icon" data-icon="agi"></span><b id="bAgi"></b><small>چابکی</small></span></div>
+   <div id="heroFloats" class="float-layer" aria-hidden="true"></div>
+  </article>
+ </div>
+ <div id="battleFeed" class="battle-feed" aria-live="polite">آمادهٔ نبرد</div>
+ <div class="battle-controls"><div class="action-row battle-action-primary"><button id="mainActionBtn" class="primary battle-main-action" type="button" onclick="handleMainAction()">جست‌وجوی دشمن</button><button id="fleeBtn" class="battle-flee" type="button" onclick="flee()" hidden>عقب‌نشینی</button></div><div id="magicRow" class="action-row" hidden><button id="fireballBtn" type="button" onclick="castFireball()">گوی آتشین · ۲۰ مانا</button><button id="healSkillBtn" type="button" onclick="castHeal()">ورد شفا · ۱۵ مانا</button></div><div id="battleShopRow" class="action-row" hidden><button id="buyHpBattleBtn" type="button" onclick="buyBattleHp()">درمان ۶۰ جان · ۲۰ <span class="svg-icon" data-icon="gold"></span></button><button id="buyMpBattleBtn" type="button" onclick="buyBattleMp()">بازیابی ۴۰ مانا · ۲۰ <span class="svg-icon" data-icon="gold"></span></button></div></div>
+</section>
+<section id="shop"><div class="heading"><h1>بازار تجهیزات</h1></div><div class="shop-tabs"><button data-cat="swords" aria-label="شمشیر" title="شمشیر" onclick="openShop('swords')"><span class="svg-icon" data-icon="sword"></span></button><button data-cat="shields" aria-label="سپر" title="سپر" onclick="openShop('shields')"><span class="svg-icon" data-icon="def"></span></button><button data-cat="armors" aria-label="زره" title="زره" onclick="openShop('armors')"><span class="svg-icon" data-icon="armor"></span></button><button data-cat="boots" aria-label="چکمه" title="چکمه" onclick="openShop('boots')"><span class="svg-icon" data-icon="boots"></span></button><button data-cat="heals" aria-label="افزایش جان" title="افزایش جان" onclick="openShop('heals')"><span class="svg-icon" data-icon="heal"></span></button><button data-cat="manaRegen" aria-label="بازیابی مانا" title="بازیابی مانا" onclick="openShop('manaRegen')"><span class="svg-icon" data-icon="manaRegen"></span></button><button data-cat="manaRings" aria-label="انگشتر مانا" title="انگشتر مانا" onclick="openShop('manaRings')"><span class="svg-icon" data-icon="mana"></span></button><button data-cat="fireballs" aria-label="گوی آتش" title="گوی آتش" onclick="openShop('fireballs')"><span class="svg-icon" data-icon="fire"></span></button></div><div class="heading"><h2 id="shopTitle">بازار</h2></div><div id="shopItems" class="shop-list"></div></section></main><nav id="bottomBar" class="bottom-nav" aria-label="بخش‌های بازی"><button id="btn-stats" class="active" onclick="tab('stats')">قهرمان</button><button id="btn-dungeons" onclick="tab('dungeons')">سیاه‌چال</button><button id="btn-battle" onclick="tab('battle')">نبرد</button><button id="btn-shop" onclick="tab('shop')">بازار</button></nav><script src="data.js"></script><script src="js/expansion.js"></script><script src="js/hero.js"></script><script src="js/core.js"></script><script src="js/dungeons.js"></script><script src="js/shop.js"></script><script src="js/battle.js"></script><script>openShop('swords');render();if('serviceWorker' in navigator && location.protocol!=='file:')navigator.serviceWorker.register('sw.js');</script></body></html>

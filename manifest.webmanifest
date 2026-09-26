@@ -1,0 +1,18 @@
+﻿{
+  "id": "./index.html",
+  "name": "افسانهٔ سیاه‌چال",
+  "short_name": "سیاه‌چال",
+  "description": "بازی نقش‌آفرینی فارسی و آفلاین",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07090d",
+  "theme_color": "#07090d",
+  "icons": [
+    { "src": "icons/app-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/app-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
