@@ -1,3 +1,4 @@
+const APP_VERSION = '1.1.0';
 const ICONS = {
   gold: '00Static_data/assets/ui/gold.svg',
   heart: '00Static_data/assets/ui/heart.svg',

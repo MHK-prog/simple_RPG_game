@@ -1,6 +1,27 @@
 let encounterType='ready';
+function milestoneReward(optionId,dungeonIndex){
+ if(optionId==='gold'){const amount=60+dungeonIndex*30;return {id:'gold',title:'کیسهٔ سکه',detail:'+'+amount+' سکه',gold:amount};}
+ if(optionId==='rest'){const hp=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.35)),mp=Math.min(player.maxMp-player.mp,Math.ceil(player.maxMp*.25));return {id:'rest',title:'استراحت',detail:'+'+hp+' جان · +'+mp+' مانا'};}
+ const amount=35+dungeonIndex*20;return {id:'wisdom',title:'دانش سیاه‌چال',detail:'+'+amount+' تجربه',xp:amount};
+}
+function createMilestoneReward(dungeonIndex,milestone){
+ const options=player.hp<player.maxHp||player.mp<player.maxMp?['gold','rest','wisdom']:['gold','wisdom'];
+ for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];}
+ return {dungeonIndex,milestone,options:options.slice(0,2)};
+}
+function claimMilestoneReward(optionId){
+ if(!pendingRewardChoice||!pendingRewardChoice.options.includes(optionId))return;
+ const reward=milestoneReward(optionId,pendingRewardChoice.dungeonIndex);let message='جایزهٔ ویژه را گرفتی: '+reward.title+'؛ '+reward.detail+'.';
+ if(reward.gold)player.gold+=reward.gold;
+ if(reward.xp)gainXp(reward.xp);
+ if(reward.id==='rest'){
+  const hp=Math.min(player.maxHp-player.hp,Math.ceil(player.maxHp*.35)),mp=Math.min(player.maxMp-player.mp,Math.ceil(player.maxMp*.25));
+  player.hp+=hp;player.mp+=mp;message='استراحت کردی؛ '+hp+' جان و '+mp+' مانا بازیابی شد.';
+ }
+ pendingRewardChoice=null;battleLog(message);showToast(message);render();
+}
 function tickCooldowns(){hpBuyCooldown=Math.max(0,hpBuyCooldown-1);mpBuyCooldown=Math.max(0,mpBuyCooldown-1);}
-function handleMainAction(){if(player.hp<=0){battleLog('برای ادامه قهرمان را احیا کن.');return;}if(!enemy){findEnemy();return;}attack();}
+function handleMainAction(){if(pendingRewardChoice){battleLog('برای ادامه، یکی از جایزه‌ها را انتخاب کن.');return;}if(player.hp<=0){battleLog('برای ادامه قهرمان را احیا کن.');return;}if(!enemy){findEnemy();return;}attack();}
 function showEncounter(type,message){encounterType=type;battleLog(message);render();}
 function findEnemy(){
  if(dungeonKills[curDungeonIdx]>=100){encounterType='complete';battleLog('این سیاه‌چال پاک‌سازی شده است.');render();return;}
@@ -28,6 +49,7 @@ function manaSpring(){
 }
 function findTreasure(){
  const amount=Math.floor((16+Math.random()*25)*(1+curDungeonIdx*.28));player.gold+=amount;floatNumber('heroFloats',amount,'gold');
+ recordMissionProgress('treasure');
  showEncounter('treasure','گنج پنهان پیدا کردی · '+amount+' سکه به دست آوردی.');
 }
 function triggerTrap(){
@@ -45,6 +67,7 @@ function castFireball(){
  if(!enemy||player.hp<=0)return;
  if(player.mp<20){battleLog('برای گوی آتشین ۲۰ مانا لازم است.');return;}
  tickCooldowns();player.mp-=20;heroMpDelta='−۲۰';floatNumber('heroFloats',-20,'mana');
+ recordMissionProgress('skills');
  const damage=Math.floor(player.atk*1.6+25+(player.firePower||0));enemy.hp=Math.max(0,enemy.hp-damage);enemyHpDelta='−'+damage;floatNumber('enemyFloats',-damage,'damage');
  resolveAction('گوی آتشین '+damage+' آسیب زد.');
 }
@@ -52,6 +75,7 @@ function castHeal(){
  if(!enemy||player.hp<=0)return;
  if(player.mp<15){battleLog('برای ورد شفا ۱۵ مانا لازم است.');return;}
  tickCooldowns();player.mp-=15;heroMpDelta='−۱۵';floatNumber('heroFloats',-15,'mana');
+ recordMissionProgress('skills');
  const healed=Math.min(player.maxHp-player.hp,Math.floor(player.heal*1.5+20));player.hp+=healed;heroHpDelta='+'+healed;floatNumber('heroFloats',healed,'healing');
  enemyTurn('ورد شفا خواندی و '+healed+' جان بازیابی کردی.');
 }
@@ -60,10 +84,12 @@ function resolveAction(message){
  if(enemy.hp<=0){
   const defeated=enemy,gold=Math.floor(defeated.gold*(1+curDungeonIdx*.35)),xp=Math.floor(defeated.maxHp*.25*(1+curDungeonIdx*.25));
   player.gold+=gold;player.kills++;dungeonKills[curDungeonIdx]=Math.min(100,dungeonKills[curDungeonIdx]+1);player.bestDungeon=Math.max(player.bestDungeon,curDungeonIdx);
+  recordMissionProgress('kills');
   const healed=Math.min(player.maxHp-player.hp,player.heal),mana=Math.min(player.maxMp-player.mp,player.manaRegen);player.hp+=healed;player.mp+=mana;
   if(healed)floatNumber('heroFloats',healed,'healing');if(mana)floatNumber('heroFloats',mana,'mana');
   const oldLevel=player.lvl;gainXp(xp);const levels=player.lvl-oldLevel;enemy=null;heroHpDelta=healed?'+'+healed:'';enemyHpDelta='';encounterType='victory';
-  battleLog(defeated.name+' شکست خورد · '+dungeonKills[curDungeonIdx]+' از ۱۰۰');showRewardToast(gold,xp,levels);render();return;
+  const count=dungeonKills[curDungeonIdx];if(count>0&&count%5===0)pendingRewardChoice=createMilestoneReward(curDungeonIdx,count);
+  battleLog(pendingRewardChoice?'به جایزهٔ '+count+' پیروزی رسیدی؛ یکی را انتخاب کن.':defeated.name+' شکست خورد · '+count+' از ۱۰۰');showRewardToast(gold,xp,levels);render();return;
  }
  enemyTurn(message);
 }
@@ -96,4 +122,7 @@ function renderBattle(rank){
  const buyHp=document.getElementById('buyHpBattleBtn');if(buyHp){buyHp.disabled=!active||!!hpBuyCooldown||player.gold<20||player.hp>=player.maxHp;buyHp.innerHTML=hpBuyCooldown?'درمان · '+hpBuyCooldown+' نوبت':'درمان ۶۰ جان · ۲۰ '+icon('gold');}
  const buyMp=document.getElementById('buyMpBattleBtn');if(buyMp){buyMp.disabled=!active||!!mpBuyCooldown||player.gold<20||player.mp>=player.maxMp;buyMp.innerHTML=mpBuyCooldown?'مانا · '+mpBuyCooldown+' نوبت':'بازیابی ۴۰ مانا · ۲۰ '+icon('gold');}
  const fireball=document.getElementById('fireballBtn');if(fireball)fireball.disabled=!active||player.mp<20;const heal=document.getElementById('healSkillBtn');if(heal)heal.disabled=!active||player.mp<15||player.hp>=player.maxHp;
+ const rewardPanel=document.getElementById('rewardChoicePanel'),controls=document.querySelector('.battle-controls');
+ if(rewardPanel){rewardPanel.hidden=!pendingRewardChoice;if(pendingRewardChoice)rewardPanel.innerHTML='<h2>جایزهٔ '+pendingRewardChoice.milestone+' پیروزی</h2><p>یکی از این دو پاداش را انتخاب کن.</p><div class="reward-choice-list">'+pendingRewardChoice.options.map(id=>{const reward=milestoneReward(id,pendingRewardChoice.dungeonIndex);return '<button type="button" class="reward-choice" onclick="claimMilestoneReward(\''+id+'\')"><b>'+reward.title+'</b><span>'+reward.detail+'</span></button>';}).join('')+'</div>';}
+ if(controls)controls.hidden=!!pendingRewardChoice;
 }

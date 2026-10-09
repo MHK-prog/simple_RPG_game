@@ -6,6 +6,21 @@ function applyItem(item,direction){
  if(item.maxMp){player.maxMp+=direction*item.maxMp;player.mp=Math.min(player.maxMp,player.mp+direction*item.maxMp);}
  player.agi=Math.max(1,player.agi);
 }
+function itemBonuses(item={}){
+ return {atk:item.atk||0,def:item.def||0,agi:(item.agi||0)-(item.agi_down||0),maxHp:item.hp||0,maxMp:item.maxMp||0,heal:item.heal||0,manaRegen:(item.regen||0)+(item.manaRegen||0),firePower:item.firePower||0};
+}
+function previewEquipment(category,index){
+ const before=itemBonuses(SHOP[category][player.equipment[category]]),after=itemBonuses(SHOP[category][index]),preview={...player};
+ for(const key of Object.keys(before))preview[key]=(preview[key]||0)-before[key]+after[key];
+ preview.agi=Math.max(1,preview.agi);return {preview,deltas:Object.fromEntries(Object.keys(before).map(key=>[key,after[key]-before[key]]))};
+}
+function itemImpactHtml(category,index){
+ const {preview,deltas}=previewEquipment(category,index),labels={atk:'حمله',def:'دفاع',agi:'چابکی',maxHp:'حداکثر جان',maxMp:'حداکثر مانا',heal:'قدرت درمان',manaRegen:'بازیابی مانا',firePower:'قدرت آتش'};
+ const changes=Object.entries(deltas).filter(([,value])=>value!==0).map(([key,value])=>(value>0?'+':'−')+Math.abs(value)+' '+labels[key]);
+ const oldRank=calcRank(player),newRank=calcRank(preview),scoreChange=getPowerScore(preview)-getPowerScore(player);
+ const rankText=oldRank===newRank?(scoreChange===0?'رتبه تغییری نمی‌کند':'رتبه '+RANKS[newRank]+' · '+(scoreChange>0?'+':'−')+Math.abs(scoreChange)+' امتیاز قدرت'):'رتبه از '+RANKS[oldRank]+' به '+RANKS[newRank];
+ return '<small class="item-impact"><span>'+(changes.length?changes.join(' · '):'بدون تغییر در ویژگی‌ها')+'</span><b>'+(player.equipment[category]===index?'این وسیله همین حالا مجهز است':rankText)+'</b></small>';
+}
 function buy(category,index){
  const item=SHOP[category]?.[index];
  if(!item)return;
@@ -35,6 +50,6 @@ function openShop(category){
   const equipped=player.equipment[category]===index,owned=ownedItems[category]?.[index]===true;
   const disabled=equipped||(!owned&&player.gold<item.cost);
   const label=equipped?'مجهز':owned?'تجهیز':'خرید · '+item.cost+' '+icon('gold');
-  return '<article class="shop-item"><img src="'+item.img+'" alt=""><div class="item-info"><b>'+item.name+'</b><span>'+stats.join(' · ')+'</span></div><button '+(disabled?'disabled':'')+' onclick="buy(\''+category+'\','+index+')">'+label+'</button></article>';
+  return '<article class="shop-item"><img src="'+item.img+'" alt=""><div class="item-info"><b>'+item.name+'</b><span>'+stats.join(' · ')+'</span>'+itemImpactHtml(category,index)+'</div><button '+(disabled?'disabled':'')+' onclick="buy(\''+category+'\','+index+')">'+label+'</button></article>';
  }).join('');
 }

@@ -1,7 +1,7 @@
-const CACHE_NAME = 'afsaneye-siahchal-v7';
+const CACHE_NAME = 'afsaneye-siahchal-v9';
 const APP_SHELL = [
   './', './index.html', './manifest.webmanifest',
-  './data.js', './js/expansion.js', './js/hero.js', './js/core.js', './js/pwa.js',
+  './data.js', './js/expansion.js', './js/hero.js', './js/missions.js', './js/core.js', './js/pwa.js',
   './js/dungeons.js', './js/shop.js', './js/battle.js',
   './00Static_data/fonts/Vazir-Regular.woff2', './00Static_data/fonts/Vazir-Bold.woff2',
   './00Static_data/assets/pwa/app-192.png', './00Static_data/assets/pwa/app-512.png',
